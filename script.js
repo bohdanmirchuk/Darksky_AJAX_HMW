@@ -26,7 +26,7 @@ var url1 = "https://randomuser.me/api/?result=2";
 var url2 =  "https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/37.8267,-122.4233";
 
 
-fetch(url1)
+fetch(url2)
   .then(function(response) {
 return response.json();
 
