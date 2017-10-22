@@ -1,3 +1,26 @@
+var PosArray;
+
+function getPosition(){
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
+  };
+
+  function success(position) {
+    var crd = position.coords;
+    PosArray = [crd.latitude, crd.longitude];
+    console.log(PosArray);
+  };
+
+  function error(error) {
+    console.warn(`ERROR(${error.code}): ${error.message}`);
+  };
+
+  navigator.geolocation.getCurrentPosition(success, error, options);
+}
+getPosition();
+
 // (function(){
 
 //   function init(){
@@ -22,31 +45,18 @@
 
 //   init();
 // })()
-var url1 = "https://randomuser.me/api/?result=2";
-var url2 =  "https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/37.8267,-122.4233";
 
+
+// var url1 = "https://randomuser.me/api/?result=2";
+// var url2 =  "https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/37.8267,-122.4233";
+// var url3 = "https://www.where-am-i.net/";
 // $.ajax({
 //     type: 'GET',
-//     url: url2,
+//     url: url3,
 //     dataType: 'jsonp',
 //   }).done(function(response) {
 //     console.log(response);
 //   })
-fetch(url1,  {mode: 'no-cors',
-             method: 'GET',
-             headers: 'Access-Control-Allow-Origin: *'})
-  .then(function(response) {
-return response.json();
-   })
-  .then(function(response){
-    response.results.forEach(function(result){
-      console.log(response.headers);
-      console.log(result.currently.time);
-    })
-    console.log(response.results[0].name.first);
-    console.log(response);
-  })
-  // .catch( alert("shit") );
 
 //   fetch('https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/37.8267,-122.4233')
 //   .then(function(response) {
