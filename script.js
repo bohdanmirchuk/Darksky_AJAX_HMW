@@ -20,7 +20,11 @@ var userPositionPromise = getCurrentPosition();
 userPositionPromise
   .then(function(data) {
    latitude = data.coords.latitude;
-    longitude = data.coords.longitude;
+    longitude = data$.each(resp.results[0].address_components, function(i,v){
+      if(this.types[0] == 'locality'){
+        obj = this.short_name;
+      }
+    });.coords.longitude;
     console.log('latitude', latitude, 'longitude', longitude);
   getTimezone();
   })
