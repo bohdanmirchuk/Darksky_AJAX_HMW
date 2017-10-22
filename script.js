@@ -1,23 +1,13 @@
-var PosArray;
+var Coords;
 
 function getPosition(){
-  var options = {
-    enableHighAccuracy: true,
-    timeout: 10000,
-    maximumAge: 0
-  };
-
-  function success(position) {
-    var crd = position.coords;
-    PosArray = [crd.latitude, crd.longitude];
-    console.log(PosArray);
-  };
-
-  function error(error) {
-    console.warn(`ERROR(${error.code}): ${error.message}`);
-  };
-
-  navigator.geolocation.getCurrentPosition(success, error, options);
+  navigator.geolocation.getCurrentPosition(function (position) {
+    Coords = [position.coords.latitude, position.coords.longitude];
+    console.log(Coords);
+  };, 
+  function (error) {
+    console.warn('Something wrong...Error'+error.code+':'+error.message);
+  }
 }
 getPosition();
 
