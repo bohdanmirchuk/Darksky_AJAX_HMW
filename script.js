@@ -1,62 +1,58 @@
-var Coords;
+var latitude;
+var longitude;
 
-function getPosition(){
-  navigator.geolocation.getCurrentPosition(function (position) {
-    Coords = [position.coords.latitude, position.coords.longitude];
-    console.log(Coords);
-  };, 
-  function (error) {
-    console.warn('Something wrong...Error'+error.code+':'+error.message);
+var getCurrentPosition = function() {
+  var deferred = $.Deferred();
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(deferred.resolve, deferred.reject);
+  } else {
+    deferred.reject({
+      error: 'Browser doesn\'t support geolocation'
+    });
   }
+
+  return deferred.promise();
+};
+
+var userPositionPromise = getCurrentPosition();
+
+userPositionPromise
+  .then(function(data) {
+   latitude = data.coords.latitude;
+    longitude = data.coords.longitude;
+    console.log('latitude', latitude, 'longitude', longitude);
+  getTimezone();
+  })
+  .fail(function(error) {
+    console.warn('Something wrong...Error'+error.code+':'+error.message);
+  });
+
+
+function geoFindMe() {
+  var output = document.getElementById("out");
+  
+   if (!navigator.geolocation){
+    output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+    return;
+  }
+   output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+  
+    var img = new Image();
+    img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
+
+    output.appendChild(img);
 }
-getPosition();
 
-// (function(){
+function getTimezone(){
+var url2 = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude;
+console.log(url2);
+  $.ajax({
+    type: 'GET',
+    url: url2,
+    dataType: 'jsonp',
+  }).done(function(response) {
+    console.log(response.timezone);
+  })
+}
 
-//   function init(){
-//     getLocation();
-//   };
-
-//   function getLocation(){
-//     var deffered = $.Deferred();
-//     if (navigator.getLocation){
-//       navigator.getLocation.getCurrentPosition(function(data){
-//         console.log(data);
-//         deferred.resolve(data);
-//       },
-//       function(error){
-//         console.log(error);
-//         deferred.reject (data);
-//       });
-//     }
-
-//     return deffered.promise();
-//   };
-
-//   init();
-// })()
-
-
-// var url1 = "https://randomuser.me/api/?result=2";
-// var url2 =  "https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/37.8267,-122.4233";
-// var url3 = "https://www.where-am-i.net/";
-// $.ajax({
-//     type: 'GET',
-//     url: url3,
-//     dataType: 'jsonp',
-//   }).done(function(response) {
-//     console.log(response);
-//   })
-
-//   fetch('https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/37.8267,-122.4233')
-//   .then(function(response) {
-// return response.json();
-
-//    })
-//   .then(function(response){
-//     response.results.forEach(function(result){
-//       console.log(result.currently.time);
-//     })
-//     console.log(response.results[0].name.first);
-//   })
-//   // .catch( alert("shit") );
