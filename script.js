@@ -1,5 +1,6 @@
 var latitude;
 var longitude;
+var locality;
 
 var getCurrentPosition = function() {
   var deferred = $.Deferred();
@@ -20,13 +21,10 @@ var userPositionPromise = getCurrentPosition();
 userPositionPromise
   .then(function(data) {
    latitude = data.coords.latitude;
-    longitude = data$.each(resp.results[0].address_components, function(i,v){
-      if(this.types[0] == 'locality'){
-        obj = this.short_name;
-      }
-    });.coords.longitude;
+    longitude = data.coords.longitude;
     console.log('latitude', latitude, 'longitude', longitude);
   getTimezone();
+  getLocality()
   })
   .fail(function(error) {
     console.warn('Something wrong...Error'+error.code+':'+error.message);
@@ -49,14 +47,31 @@ function geoFindMe() {
 }
 
 function getTimezone(){
-var url2 = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude;
-console.log(url2);
+var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude;
+console.log(url);
   $.ajax({
     type: 'GET',
-    url: url2,
+    url: url,
     dataType: 'jsonp',
   }).done(function(response) {
     console.log(response.timezone);
+  })
+}
+
+function getLocality(){
+var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude;
+console.log(url);
+  $.ajax({
+    type: 'GET',
+    url: url,
+    dataType: 'json',
+  }).done(function(response) {
+    $.each(response.results[0].address_components, function(){
+      if(this.types[0] == 'locality'){
+        locality = this.long_name;
+      }
+    });
+    console.log(locality);
   })
 }
 
