@@ -7,20 +7,23 @@
   <title>Darksky</title>
 
   <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
 </head>
 <body class="bg-dark">
-  <div class="container-fluid">
-    <div class="container d-flex justify-content-center">
+  <div class="container-fluid ">
+    <div id="keepcalm" class="container d-flex justify-content-center align-items-center">
+      <h1 class="">keep calm</h1>
+    </div>
+    <div class="weather container d-flex justify-content-center">
       <div>
         <h1 id="locality"></h1>
         <h3 id="date"></h3>
       </div>
       <div id="map"></div>
     </div>
-    <div class="container d-flex justify-content-center">
+    <div class="weather container d-flex justify-content-center">
        <div>
          <canvas id="icon" width="128" height="128"></canvas>
       </div>
@@ -32,7 +35,7 @@
         <p></p>
       </div>
     </div>
-     <div class="container d-flex justify-content-center">
+     <div class="weather container d-flex justify-content-center">
        <div>
          <button type="button" class="btn btn-dark btn-outline-light btn-lg">Previous day</button>
        </div> 

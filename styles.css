@@ -1,3 +1,11 @@
+div#keepcalm {
+  height: 400px;
+  position: absolute;
+  
+}
+.weather{
+  opacity: 0;
+}
 img {
   border-radius: 75px;
 }

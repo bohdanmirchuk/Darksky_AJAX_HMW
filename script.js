@@ -54,7 +54,11 @@ var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+l
     skyconsIcon(icon);
     $('#summary').text(response.currently.summary);
     var temp = response.currently.temperature;
+    var feeltemp = response.currently.apparentTemperature;
     $('#temperature').text(Math.floor((temp-32)*5/9)+'°C');
+    $('#feelslike').text('Feels like '+Math.floor((feeltemp-32)*5/9)+'°C');
+    $('#keepcalm').css('opacity', 0);
+    $('.weather').css('opacity', 1);
   })
 }
 
