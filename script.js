@@ -91,6 +91,6 @@ function previousDay(){
 }
 
 function nextDay(){
-  date = moment.unix(date).subtract(1, 'day').format("X");
+  date = moment.unix(date).add(1, 'day').format("X");
   getWeather(date);
 }
