@@ -25,8 +25,7 @@ userPositionPromise
    latitude = data.coords.latitude;
     longitude = data.coords.longitude;
     console.log('latitude', latitude, 'longitude', longitude);
-  getTimezone();
-  getLocality()
+  getLocality();
   })
   .fail(function(error) {
     console.warn('Something wrong...Error'+error.code+':'+error.message);
@@ -47,25 +46,26 @@ function geoFindMe() {
   
     var img = new Image();
     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=12&size=300x300&key=AIzaSyDGrTQNh1fmVkol36vbLQQppvqRwAExpDE";
-
+    
+    getWeather();
     output.appendChild(img);
 }
 
-function getTimezone(){
+function getWeather(){
 var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude;
-console.log(url);
   $.ajax({
     type: 'GET',
     url: url,
     dataType: 'jsonp',
   }).done(function(response) {
-    console.log(response.timezone);
+    console.log(response.currently.icon);
+    var icon = response.currently.icon;
+    skyconsIcon(icon);
   })
 }
 
 function getLocality(){
 var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+latitude+','+longitude;
-console.log(url);
   $.ajax({
     type: 'GET',
     url: url,
@@ -77,13 +77,11 @@ console.log(url);
       }
     });
     console.log(locality);
-    skyconsIcon()
   })
 }
 
-function skyconsIcon(){
- var skycons = new Skycons({"color": "red"}); 
- skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+function skyconsIcon(icon){
+ var skycons = new Skycons({"color": "black"}); 
+ skycons.add("icon", icon);
  skycons.play();
- console.log(skycons);
 }
