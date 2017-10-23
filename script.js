@@ -26,7 +26,7 @@ userPositionPromise
    longitude = data.coords.longitude;
    console.log('latitude', latitude, 'longitude', longitude);
   getLocality();
-  getWeather();
+  getWeather(date);
   })
   .fail(function(error) {
     console.warn('Something wrong...Error'+error.code+':'+error.message);
@@ -34,13 +34,14 @@ userPositionPromise
 
 
 function geoFindMe() {  
+    $('#map').html('');
     var img = new Image();
     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=10&size=100x100&key=AIzaSyDGrTQNh1fmVkol36vbLQQppvqRwAExpDE";
     $('#map').append(img);
 }
 
-function getWeather(){
-var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude;
+function getWeather(time){
+var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude+','+time;
   $.ajax({
     type: 'GET',
     url: url,
@@ -49,7 +50,7 @@ var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+l
     console.log(response.currently.icon);
     var icon = response.currently.icon;
     $('#locality').text(locality);
-    $('#date').text(moment.unix(date).format("dddd Do"));
+    $('#date').text(moment.unix(time).format("dddd Do"));
     geoFindMe();
     skyconsIcon(icon);
     $('#summary').text(response.currently.summary);
@@ -82,4 +83,14 @@ function skyconsIcon(icon){
  var skycons = new Skycons({"color": "white"}); 
  skycons.add("icon", icon);
  skycons.play();
+}
+
+function previousDay(){
+  date = moment.unix(date).subtract(1, 'day').format("X");
+  getWeather(date);
+}
+
+function nextDay(){
+  date = moment.unix(date).subtract(1, 'day').format("X");
+  getWeather(date);
 }
