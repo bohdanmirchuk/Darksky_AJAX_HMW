@@ -1,6 +1,8 @@
 var latitude;
 var longitude;
 var locality;
+var date = moment().format('X');
+console.log(moment.unix(date).format('dddd Do HH:mm'));
 
 var getCurrentPosition = function() {
   var deferred = $.Deferred();
@@ -39,6 +41,9 @@ function geoFindMe() {
     return;
   }
    output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+   output.insertAdjacentHTML('beforeEnd', '<p id="locality">'+locality+'</p>');
+     output.insertAdjacentHTML('beforeEnd', '<p id="date">'+moment.unix(date).format('dddd Do')+'<br>'+moment.unix(date).format('HH:mm')+'</p>');
+
   
     var img = new Image();
     img.src = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
@@ -72,6 +77,13 @@ console.log(url);
       }
     });
     console.log(locality);
+    skyconsIcon()
   })
 }
 
+function skyconsIcon(){
+ var skycons = new Skycons({"color": "red"}); 
+ skycons.add("icon1", Skycons.PARTLY_CLOUDY_DAY);
+ skycons.play();
+ console.log(skycons);
+}
