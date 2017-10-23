@@ -46,7 +46,7 @@ function geoFindMe() {
 
   
     var img = new Image();
-    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=13&size=300x300&sensor=false";
+    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," + longitude + "&zoom=12&size=300x300&key=AIzaSyDGrTQNh1fmVkol36vbLQQppvqRwAExpDE";
 
     output.appendChild(img);
 }
