@@ -1,7 +1,10 @@
 div#keepcalm {
   height: 400px;
   position: absolute;
-  
+  left: 38%;
+  top: 150px;
+}
+div#keepcalm h1{
 }
 .weather{
   opacity: 0;
