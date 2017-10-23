@@ -10,13 +10,37 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  
+  <div class="container-fluid bg-dark">
+    <div class="container d-flex justify-content-center">
+      <div>
+        <h1 id="locality"></h1>
+        <h3 id="date"></h3>
+      </div>
+      <div id="map"></div>
+    </div>
+    <div class="container d-flex justify-content-center">
+       <div>
+         <canvas id="icon" width="128" height="128"></canvas>
+      </div>
+      <div>
+        <p id="summary">Summary</p>
+        <p id="temperature" class="">9C</p>
+        <p></p>
+      </div>
+    </div>
+     <div class="container d-flex justify-content-center">
+       <div>
+         <button type="button" class="btn btn-dark btn-outline-light btn-lg">Previous day</button>
+       </div> 
+       <div> 
+         <button type="button" class="btn btn-dark btn-outline-light btn-lg">Next day</button>
+       </div>
+        
+      </div>
+    </div>
 
-<p>
-  <button onclick="geoFindMe()">Show my location</button>
-</p>
-<div id="out"></div>
-  <canvas id="icon" width="128" height="128"></canvas>
+  </div>
+  
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
