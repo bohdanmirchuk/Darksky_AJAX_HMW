@@ -41,7 +41,12 @@ function geoFindMe() {
 }
 
 function getWeather(time){
-var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude+','+time;
+  var url = 'https://api.darksky.net/forecast/ec7ca3493d508e807cfe8300fac7ba35/'+latitude+','+longitude+','+time;
+  if(moment.unix(time).format("D") == moment().format("D")){
+    $("#nextday").attr("disabled","");
+  } else {
+    $("#nextday").removeAttr("disabled");
+  }
   $.ajax({
     type: 'GET',
     url: url,
