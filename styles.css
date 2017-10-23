@@ -7,4 +7,8 @@ img {
 div {
   color: #fff;
   margin: 15px;
+  font-size: 22px
+}
+#temperature {
+  font-size: 36px;
 }
